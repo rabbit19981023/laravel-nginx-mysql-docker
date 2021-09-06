@@ -1,0 +1,22 @@
+# dependencies
+
+# build-stage files
+build
+dist
+
+# git info
+.git
+.gitignore
+README.md
+
+# docker info
+Dockerfile
+docker-compose.yml
+.dockerignore
+nginx.dockerfile
+
+# sensitive data
+.env
+.npmrc
+.env.example
+.npmrc.example

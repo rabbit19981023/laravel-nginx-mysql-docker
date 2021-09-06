@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+    laravel_nginx:
+        build:
+            context: ./nginx
+            dockerfile: nginx.dockerfile
+            args: 
+                - NGINXGROUP=${NGINXGROUP}
+                - NGINXUSER=${NGINXUSER}
+        image: laravel_nginx:latest
+        container_name: laravel_nginx
+        depends_on:
+            - laravel_php
+        #     - laravel_mysql
+        networks:
+            - laravel
+        tty: true
+        ports:
+            - 80:80
+        volumes:
+            - ./php/src:/var/www/html
+
+    laravel_php:
+        build:
+            context: ./php
+            dockerfile: php.dockerfile
+            args:
+                - PHPGROUP=${PHPGROUP}
+                - PHPUSER=${PHPUSER}
+        image: laravel_php:latest
+        container_name: laravel_php
+        networks:
+            - laravel
+        tty: true
+        volumes:
+            - ./php/src:/var/www/html
+
+networks:
+    laravel:
+
+# volumes:

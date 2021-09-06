@@ -1,0 +1,9 @@
+# dependencies
+
+# build-stage files
+build
+dist
+
+# sensitive data
+.env
+.npmrc
