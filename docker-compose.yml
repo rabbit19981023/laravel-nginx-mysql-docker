@@ -12,14 +12,15 @@ services:
         container_name: laravel_nginx
         depends_on:
             - laravel_php
-        #     - laravel_mysql
-        networks:
-            - laravel
+            - laravel_mariadb
+            - laravel_redis
         tty: true
         ports:
             - 80:80
         volumes:
-            - ./php/src:/var/www/html
+            - ./src:/var/www/html
+        networks:
+            - laravel
 
     laravel_php:
         build:
@@ -30,13 +31,34 @@ services:
                 - PHPUSER=${PHPUSER}
         image: laravel_php:latest
         container_name: laravel_php
-        networks:
-            - laravel
         tty: true
         volumes:
-            - ./php/src:/var/www/html
+            - ./src:/var/www/html
+        networks:
+            - laravel
+
+    laravel_mariadb:
+        image: mariadb:latest
+        container_name: laravel_mariadb
+        tty: true
+        restart: always
+        environment:
+            MARIADB_DATABASE: laravel
+            MARIADB_USER: user_test
+            MARIADB_PASSWORD: password
+            MARIADB_ROOT_PASSWORD: password
+        volumes:
+            - ./db_test:/var/lib/mysql
+        networks:
+            - laravel
+
+    laravel_redis:
+        image: redis:alpine
+        container_name: laravel_redis
+        tty: true
+        restart: always
+        networks:
+            - laravel
 
 networks:
     laravel:
-
-# volumes:
