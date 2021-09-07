@@ -1,10 +1,12 @@
 ## To do list
 
-- [x] Nginx
-- [x] PHP
-- [x] Laravel
-- [x] MariaDB
-- [x] Redis
+- development environment:
+
+    - [x] Nginx
+    - [x] PHP
+    - [x] Laravel
+    - [x] MariaDB
+    - [x] Redis
 
 ## Usage
 
