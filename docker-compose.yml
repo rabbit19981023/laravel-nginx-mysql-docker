@@ -43,12 +43,12 @@ services:
         tty: true
         restart: always
         environment:
-            MARIADB_DATABASE: laravel
-            MARIADB_USER: user_test
-            MARIADB_PASSWORD: password
-            MARIADB_ROOT_PASSWORD: password
+            MARIADB_DATABASE: ${MARIADB_DATABASE}
+            MARIADB_USER: ${MARIADB_USER}
+            MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+            MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
         volumes:
-            - ./db_test:/var/lib/mysql
+            - ./db_test/${MARIADB_DATABASE}:/var/lib/mysql/${MARIADB_DATABASE}
         networks:
             - laravel
 
