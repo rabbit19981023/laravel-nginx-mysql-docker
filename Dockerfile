@@ -1,4 +1,4 @@
-FROM ubuntu:latest as base_system
+FROM ubuntu@sha256:9d6a8699fb5c9c39cf08a0871bd6219f0400981c570894cd8cbea30d3424a31f as base_system
 
 ARG TZ=Asia/Taipei
 ARG MYSQL_ROOT_PASSWORD
@@ -20,32 +20,45 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tz
     && dpkg-reconfigure --frontend noninteractive tzdata
 
 # install php
+RUN apt-get install -y software-properties-common \
+    && add-apt-repository -y ppa:ondrej/php \
+    && apt-get update
 RUN apt-get install -y \
-    php-fpm \
+    php8.0-fpm \
     php-mysql
+
+### We will use volumes instead for development
+# COPY ./php-fpm.pool.conf /
+# RUN cat /php-fpm.pool.conf >> /etc/php/8.0/fpm/pool.d/www.conf \
+#     && rm -f /php-fpm.pool.conf
 
 # install Nginx Server
 RUN apt-get install --no-install-recommends --no-install-suggests -y ca-certificates nginx
-COPY ./default.conf /etc/nginx/conf.d/
+### We will use volumes instead for development
+# COPY ./nginx.conf /
+# RUN cat /nginx.conf > /etc/nginx/sites-available/default \
+#     && ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/ \
+#     && rm -f /nginx.conf
 
 # install MariaDB Server
 RUN apt-get install -y mariadb-server
-
-# mysql_secure_installation auto scripts
 RUN apt-get install -y expect
 COPY ./mysql_secure_installation.sh /
 RUN ./mysql_secure_installation.sh -root-password ${MYSQL_ROOT_PASSWORD} \
     && rm -f ./mysql_secure_installation.sh
-
-# mysql access permissions
 RUN adduser ${USER} mysql
+
+# install Redis Server
+RUN apt-get install -y redis-server
+RUN adduser ${USER} redis
 
 WORKDIR /var/www/html
 
-USER ${USER}
-
-COPY ./src ./
+### We will use volumes instead for development
+# COPY --chown=${USER}:${USER} ./src ./
 
 # entrypoint
 COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
+USER ${USER}
