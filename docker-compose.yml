@@ -14,11 +14,11 @@ services:
             - laravel_php
             - laravel_mariadb
             - laravel_redis
-        tty: true
         ports:
             - 80:80
         volumes:
-            - ./src:/var/www/html
+            - ./src/:/var/www/html/
+            - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - laravel
 
@@ -33,14 +33,13 @@ services:
         container_name: laravel_php
         tty: true
         volumes:
-            - ./src:/var/www/html
+            - ./src/:/var/www/html/
         networks:
             - laravel
 
     laravel_mariadb:
         image: mariadb:latest
         container_name: laravel_mariadb
-        tty: true
         restart: always
         environment:
             MARIADB_DATABASE: ${MARIADB_DATABASE}
@@ -48,14 +47,13 @@ services:
             MARIADB_PASSWORD: ${MARIADB_PASSWORD}
             MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
         volumes:
-            - ./db_test/${MARIADB_DATABASE}:/var/lib/mysql/${MARIADB_DATABASE}
+            - ./my_database/${MARIADB_DATABASE}/:/var/lib/mysql/${MARIADB_DATABASE}/
         networks:
             - laravel
 
     laravel_redis:
         image: redis:alpine
         container_name: laravel_redis
-        tty: true
         restart: always
         networks:
             - laravel

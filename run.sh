@@ -1,10 +1,14 @@
 #!/bin/bash
 name_tag='my_lemp:latest'
+TZ='Asia/Taipei'
+USER="$(whoami)"
 MYSQL_ROOT_PASSWORD='password'
 
 sudo docker build \
     -f Dockerfile \
     -t $name_tag \
+    --build-arg TZ=$TZ \
+    --build-arg USER=$USER \
     --build-arg MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
     ./
 

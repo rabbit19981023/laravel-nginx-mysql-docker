@@ -36,6 +36,8 @@ Build the whole LEMP-Stack in single docker image:
 $ sudo docker build \
   -f Dockerfile \
   -t my_lemp:latest \
+  --build-arg TZ=<your-timezone> \
+  --build-arg USER=<your-current-user> \
   --build-arg MYSQL_ROOT_PASSWORD=<your-mysql-root-password> \
   ./
 ```
