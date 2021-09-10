@@ -1,6 +1,4 @@
 #!/bin/bash
-# sndo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
 sudo service php8.0-fpm start
 sudo service nginx start
 sudo service mysql start

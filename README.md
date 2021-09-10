@@ -4,6 +4,7 @@
 
     - [x] Nginx
     - [x] PHP
+    - [x] Composer
     - [x] Laravel
     - [x] MariaDB
     - [x] Redis
@@ -32,7 +33,11 @@ The command above will run these services defined in `docker-compose.yml` file:
 Build the whole LEMP-Stack in single docker image:
 
 ```bash
-$ sudo docker build -f Dockerfile -t my_lemp:latest --build-arg MYSQL_ROOT_PASSWORD=<your-mysql-root-password> ./
+$ sudo docker build \
+  -f Dockerfile \
+  -t my_lemp:latest \
+  --build-arg MYSQL_ROOT_PASSWORD=<your-mysql-root-password> \
+  ./
 ```
 
 Run the image in a container:

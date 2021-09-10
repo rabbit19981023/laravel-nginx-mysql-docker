@@ -8,6 +8,7 @@ sudo docker build \
     --build-arg MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
     ./
 
+
 php_conf_file='php-fpm.pool.conf'
 nginx_conf_file='nginx.conf'
 

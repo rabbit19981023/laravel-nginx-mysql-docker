@@ -24,13 +24,39 @@ RUN apt-get install -y software-properties-common \
     && add-apt-repository -y ppa:ondrej/php \
     && apt-get update
 RUN apt-get install -y \
-    php8.0-fpm \
-    php-mysql
+    php8.0-fpm
 
 ### We will use volumes instead for development
 # COPY ./php-fpm.pool.conf /
-# RUN cat /php-fpm.pool.conf >> /etc/php/8.0/fpm/pool.d/www.conf \
+# RUN cat /php-fpm.pool.conf > /etc/php/8.0/fpm/pool.d/www.conf \
 #     && rm -f /php-fpm.pool.conf
+
+# install composer (PHP Packages Manager)
+# method 1
+RUN apt-get install -y curl \
+    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# method 2 (Official)
+# RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+#     && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+#     && php composer-setup.php \
+#     && php -r "unlink('composer-setup.php');"
+
+# install php system extensions (use `for loop` for ignore install-errors)
+RUN for package in \
+    unzip \
+    openssl \
+    php8.0-common \
+    php8.0-curl \
+    php8.0-json \
+    php8.0-xml \
+    php8.0-mbstring \
+    php8.0-bcmath \
+    php8.0-zip \
+    php8.0-mysql; \
+    do \
+    sudo apt-get install -y $package; \
+    done
 
 # install Nginx Server
 RUN apt-get install --no-install-recommends --no-install-suggests -y ca-certificates nginx
@@ -51,6 +77,11 @@ RUN adduser ${USER} mysql
 # install Redis Server
 RUN apt-get install -y redis-server
 RUN adduser ${USER} redis
+
+# install development tools
+RUN apt-get install -y \
+    vim \
+    git
 
 WORKDIR /var/www/html
 
