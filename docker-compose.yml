@@ -14,6 +14,7 @@ services:
             - laravel_php
             - laravel_mariadb
             - laravel_redis
+        restart: always
         ports:
             - 80:80
         volumes:
@@ -31,7 +32,7 @@ services:
                 - PHPUSER=${PHPUSER}
         image: laravel_php:latest
         container_name: laravel_php
-        tty: true
+        restart: always
         volumes:
             - ./src/:/var/www/html/
         networks:
