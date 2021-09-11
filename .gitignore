@@ -8,3 +8,6 @@ dist
 # sensitive data
 .env
 .npmrc
+
+# database
+my_database

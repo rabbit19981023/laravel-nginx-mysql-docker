@@ -50,6 +50,7 @@ $ sudo docker run --rm -it \
   -p 80:80 \
   -v "$PWD/php-fpm.pool.conf:/etc/php/8.0/fpm/pool.d/www.conf" \
   -v "$PWD/nginx.conf:/etc/nginx/sites-available/default" \
+  -v "$PWD/src/:/var/www/html/" \
   my_lemp:latest
 ```
 

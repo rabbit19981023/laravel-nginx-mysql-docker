@@ -23,5 +23,5 @@ sudo docker run \
     -p 80:80 \
     -v "$php_conf_file:/etc/php/8.0/fpm/pool.d/www.conf" \
     -v "$nginx_conf_file:/etc/nginx/sites-available/default" \
-    -v "$PWD/src:/var/www/html" \
+    -v "$PWD/src/:/var/www/html/" \
     $name_tag
