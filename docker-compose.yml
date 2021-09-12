@@ -18,7 +18,7 @@ services:
         ports:
             - 80:80
         volumes:
-            - ./src/:/var/www/html/
+            - ./src:/var/www/html
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - laravel
@@ -34,7 +34,7 @@ services:
         container_name: laravel_php
         restart: always
         volumes:
-            - ./src/:/var/www/html/
+            - ./src:/var/www/html
         networks:
             - laravel
 
@@ -48,7 +48,7 @@ services:
             MARIADB_PASSWORD: ${MARIADB_PASSWORD}
             MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
         volumes:
-            - ./my_database/:/var/lib/mysql/
+            - laravel_mariadb:/var/lib/mysql
         networks:
             - laravel
 
@@ -61,3 +61,6 @@ services:
 
 networks:
     laravel:
+
+volumes:
+    laravel_mariadb:

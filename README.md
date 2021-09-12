@@ -50,7 +50,8 @@ $ sudo docker run --rm -it \
   -p 80:80 \
   -v "$PWD/php-fpm.pool.conf:/etc/php/8.0/fpm/pool.d/www.conf" \
   -v "$PWD/nginx.conf:/etc/nginx/sites-available/default" \
-  -v "$PWD/src/:/var/www/html/" \
+  -v "$PWD/src:/var/www/html" \
+  -v "laravel_mariadb:/var/lib/mysql" \
   my_lemp:latest
 ```
 
@@ -59,3 +60,7 @@ Or just run the script to build image and run it in container:
 ```bash
 $ bash ./run.sh
 ```
+
+### Volumes
+
+if your OS is linux, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (the path may vary by operating system!)
