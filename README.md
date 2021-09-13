@@ -5,6 +5,7 @@
     - [x] Nginx
     - [x] PHP
     - [x] Composer
+    - [x] NPM
     - [x] Laravel
     - [x] MariaDB
     - [x] Redis
@@ -12,6 +13,15 @@
     - [x] docker-compose
 
 ## Usage
+
+### Environment Variables
+
+Setting your `.env` file:
+
+```bash
+$ mv .env.example .env
+$ vim .env
+```
 
 ### 1. docker-compose
 
@@ -59,6 +69,22 @@ Or just run the script to build image and run it in container:
 
 ```bash
 $ bash ./run.sh
+```
+
+### Dependencies management:
+
+install and update composer packages:
+
+```bash
+$ sudo docker-compose run --rm laravel_composer composer install
+$ sudo docker-compose run --rm laravel_composer composer update
+```
+
+install npm packages:
+
+```bash
+$ sudo docker-compose run --rm laravel_nodejs npm install # install newest packages
+$ sudo docker-compose run --rm laravel_nodejs npm ci # install version-locked packages
 ```
 
 ### Volumes

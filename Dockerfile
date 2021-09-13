@@ -83,6 +83,11 @@ RUN adduser ${USER} mysql
 RUN apt-get install -y redis-server
 RUN adduser ${USER} redis
 
+# install Node.js for laravel core
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
+
 # install development tools
 RUN apt-get install -y \
     vim \
