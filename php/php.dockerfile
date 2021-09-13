@@ -30,4 +30,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #     && php composer-setup.php \
 #     && php -r "unlink('composer-setup.php');"
 
+# install unzip, git for composer
+RUN apt-get update \
+    && apt-get install -y \
+    unzip \
+    git
+
 WORKDIR /var/www/html

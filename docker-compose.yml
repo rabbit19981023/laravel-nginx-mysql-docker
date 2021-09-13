@@ -59,6 +59,23 @@ services:
         networks:
             - laravel
 
+    composer:
+        build:
+            context: ./composer
+            dockerfile: composer.dockerfile
+            args:
+                - PHPUSER=${PHPUSER}
+                - PHPGROUP=${PHPGROUP}
+        image: composer:latest
+        container_name: composer
+        depends_on:
+            - laravel_php
+        working_dir: /var/www/html
+        volumes:
+            - ./src:/var/www/html
+        networks:
+            - laravel        
+
 networks:
     laravel:
 

@@ -8,6 +8,7 @@ dist
 # sensitive data
 .env
 .npmrc
+mariadb_my_conf.cnf
 
 # database
 my_database
