@@ -16,9 +16,18 @@
 
 ### Environment Variables
 
-Setting your `.env` file:
+Setting your `.env` file in `./env`:
 
 ```bash
+$ cd /path/to/laravel-nginx-mysql-docker
+$ mv .env.example .env
+$ vim .env
+```
+
+Setting your `.env` file in `./src/.env`:
+
+```bash
+$ cd /path/to/laravel-nginx-mysql-docker/src
 $ mv .env.example .env
 $ vim .env
 ```
@@ -85,6 +94,14 @@ install npm packages:
 ```bash
 $ sudo docker-compose run --rm laravel_nodejs npm install # install newest packages
 $ sudo docker-compose run --rm laravel_nodejs npm ci # install version-locked packages
+```
+
+### Laravel App Key
+
+To generate your laravel app key, get into container and run command:
+
+```bash
+$ php artisan key:generate
 ```
 
 ### Volumes
