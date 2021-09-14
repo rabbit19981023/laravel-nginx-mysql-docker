@@ -90,3 +90,5 @@ $ sudo docker-compose run --rm laravel_nodejs npm ci # install version-locked pa
 ### Volumes
 
 if your OS is linux, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (the path may vary by operating system!)
+
+Or, you can specify `local path` in `services.laravel_mariadb.volumes` in `docker-composer.yml` file. (But you CANNOT do this by `$ docker run -v <local-path>:<container-path>`, it could cause some permission issues)
