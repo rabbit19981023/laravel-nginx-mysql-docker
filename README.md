@@ -106,7 +106,6 @@ $ php artisan key:generate
 
 ### Volumes
 
-If you are using `Dockerfile`, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (this path is for linux user)
+If you are using `Dockerfile`, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (this path is for `Linux` user!!)
 
 If you are using `docker-compose`, just find your `mariadb-volume` in `./my_database`
-
