@@ -106,6 +106,7 @@ $ php artisan key:generate
 
 ### Volumes
 
-if your OS is linux, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (the path may vary by operating system!)
+If you are using `Dockerfile`, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (this path is for linux user)
 
-Or, you can specify `local path` in `services.laravel_mariadb.volumes` in `docker-composer.yml` file. (But you CANNOT do this by `$ docker run -v <local-path>:<container-path>`, it could cause some permission issues)
+If you are using `docker-compose`, just find your `mariadb-volume` in `./my_database`
+

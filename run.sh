@@ -13,7 +13,6 @@ sudo docker build \
     ./
 
 
-php_conf_file="$PWD/php-fpm.pool.conf"
 nginx_conf_file="$PWD/nginx.conf"
 
 sudo docker run \
@@ -21,7 +20,6 @@ sudo docker run \
     -it \
     --name my_lemp \
     -p 80:80 \
-    -v "$php_conf_file:/etc/php/8.0/fpm/pool.d/www.conf" \
     -v "$nginx_conf_file:/etc/nginx/sites-available/default" \
     -v "$PWD/src:/var/www/html" \
     -v "laravel_mariadb:/var/lib/mysql" \
