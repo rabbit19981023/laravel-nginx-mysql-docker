@@ -11,6 +11,7 @@
     - [x] Redis
     - [x] Dockerfile
     - [x] docker-compose
+    - [x] Sail(Official docker-compose)
 
 ## Usage
 
@@ -109,3 +110,29 @@ $ php artisan key:generate
 If you are using `Dockerfile`, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (this path is for `Linux` user!!)
 
 If you are using `docker-compose`, just find your `mariadb-volume` in `./my_database`
+
+### Laravel Official Sail Development Environment
+
+If you prefer official method, you can use `laravel-sail`.
+
+Here's a snippet source codes from Laravel Official which can work pretty nice on my computer:
+
+```bash
+$ sudo docker run
+  --rm \
+  -w /opt \
+  -v "$PWD:/opt" \
+  laravelsail/php80-composer:latest \
+  bash -c "laravel new <your-project-name> \
+  && cd <your-project-name> \
+  && php ./artisan sail:install --with=mariadb,redis"
+```
+
+It will download a laravel project in your current directory, and just get started with commands below for developemnt:
+
+```bash
+$ cd <your-project-name>
+$ sudo ./vendor/bin/sail up
+```
+
+It may took a time for building docker images, and just navigate to `http://localhost` to access your application.
