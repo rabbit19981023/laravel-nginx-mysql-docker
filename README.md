@@ -1,6 +1,6 @@
 ## To do list
 
-- development environment:
+- Development Environment:
 
     - [x] Nginx
     - [x] PHP
@@ -21,7 +21,7 @@ Setting your `.env` file in `./env`:
 
 ```bash
 $ cd /path/to/laravel-nginx-mysql-docker
-$ mv .env.example .env
+$ cp .env.example .env
 $ vim .env
 ```
 
@@ -29,7 +29,7 @@ Setting your `.env` file in `./src/.env`:
 
 ```bash
 $ cd /path/to/laravel-nginx-mysql-docker/src
-$ mv .env.example .env
+$ cp .env.example .env
 $ vim .env
 ```
 
@@ -49,6 +49,8 @@ The command above will run these services defined in `docker-compose.yml` file:
 - laravel_redis
 
 ### 2. Dockerfile
+
+> Warning: if you use Dockerfile, it will take about 25 minutes to build the image !!
 
 Build the whole LEMP-Stack in single docker image:
 
@@ -75,7 +77,7 @@ $ sudo docker run --rm -it \
   my_lemp:latest
 ```
 
-Or just run the script to build image and run it in container:
+Or just run the script to build image and run the container:
 
 ```bash
 $ bash ./run.sh
@@ -83,18 +85,36 @@ $ bash ./run.sh
 
 ### Dependencies management:
 
-install and update composer packages:
+#### Composer
+
+Install and update composer packages:
 
 ```bash
 $ sudo docker-compose run --rm laravel_composer composer install
 $ sudo docker-compose run --rm laravel_composer composer update
 ```
 
-install npm packages:
+Or, you can get into container and run:
 
 ```bash
-$ sudo docker-compose run --rm laravel_nodejs npm install # install newest packages
-$ sudo docker-compose run --rm laravel_nodejs npm ci # install version-locked packages
+$ sudo docker exec -it laravel_php /bin/bash
+$ composer install
+$ composer update
+```
+
+#### NPM
+
+Install npm packages:
+
+```bash
+$ sudo docker-compose run --rm laravel_nodejs npm ci     # install version-locked packages
+```
+
+Also, you can get into container and run:
+
+```bash
+$ sudo docker exec -it laravel_php /bin/bash
+$ npm ci     # install version-locked packages
 ```
 
 ### Laravel App Key
@@ -102,6 +122,7 @@ $ sudo docker-compose run --rm laravel_nodejs npm ci # install version-locked pa
 To generate your laravel app key, get into container and run command:
 
 ```bash
+$ sudo docker exec -it laravel_php /bin/bash
 $ php artisan key:generate
 ```
 
@@ -113,9 +134,9 @@ If you are using `docker-compose`, just find your `mariadb-volume` in `./my_data
 
 ### Laravel Official Sail Development Environment
 
-If you prefer official method, you can use `laravel-sail`.
+If you prefer official method, you can use `Sail` which is developed by Laravel itself.
 
-Here's a snippet source codes from Laravel Official which can work pretty nice on my computer:
+Here's a snippet source codes from official which can work pretty nice on my computer:
 
 ```bash
 $ sudo docker run
