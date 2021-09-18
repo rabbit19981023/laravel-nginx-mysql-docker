@@ -36,7 +36,7 @@ RUN apt-get update \
     unzip \
     git
 
-# install nodejs for laravel core
+# install nodejs for laravel
 RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest

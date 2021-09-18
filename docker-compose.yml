@@ -88,5 +88,5 @@ services:
 networks:
     laravel:
 
-volumes:
-    laravel_mariadb:
+# volumes:
+#     laravel_mariadb:
