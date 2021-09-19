@@ -1,15 +1,15 @@
 ## To Do List
 
-    - [x] Nginx
-    - [x] PHP 8.0
-    - [x] Composer
-    - [x] NPM
-    - [x] Laravel 8
-    - [x] MariaDB
-    - [x] Redis
-    - [x] Dockerfile
-    - [x] docker-compose
-    - [x] Sail (Official docker-compose)
+- [x] Nginx
+- [x] PHP8.0
+- [x] Composer
+- [x] NPM
+- [x] Laravel8
+- [x] MariaDB
+- [x] Redis
+- [x] Dockerfile
+- [x] docker-compose
+- [x] Sail (Official docker-compose)
 
 ## Usage
 
@@ -104,14 +104,14 @@ $ composer update
 Install npm packages:
 
 ```bash
-$ sudo docker-compose run --rm laravel_nodejs npm ci     # install version-locked packages
+$ sudo docker-compose run --rm laravel_nodejs npm ci   # install version-locked packages
 ```
 
 Also, you can get into container and run:
 
 ```bash
 $ sudo docker exec -it laravel_php80 /bin/bash
-$ npm ci     # install version-locked packages
+$ npm ci   # install version-locked packages
 ```
 
 ### Laravel App Key
@@ -129,13 +129,15 @@ If you are using docker-compose, there's NO NEED to initialize your database, th
 
 If you are using Dockerfile, you NEED to follow steps below to initialize your database system:
 
-1. Login into MariaDB Workbench
-2. Create a Database
-3. Register a User
-4. Grant the Database Privileges to that User
-5. Apply the Settings above
+1. Get into MariaDB Container
+2. Login into MariaDB Workbench
+3. Create a Database
+4. Register a User
+5. Grant the Database Privileges to that User
+6. Apply the Settings above
 
 ```bash
+$ sudo docker exec -it laravel_mariadb bash
 $ sudo mysql
 MariaDB > CREATE DATABASE `laravel`;
 MariaDB > CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
