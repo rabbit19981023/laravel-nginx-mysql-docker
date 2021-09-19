@@ -11,7 +11,7 @@ services:
         image: laravel_nginx:latest
         container_name: laravel_nginx
         depends_on:
-            - laravel_php
+            - laravel_php80
             - laravel_mariadb
             - laravel_redis
         restart: always
@@ -23,15 +23,15 @@ services:
         networks:
             - laravel
 
-    laravel_php:
+    laravel_php80:
         build:
             context: ./php
             dockerfile: php.dockerfile
             args:
                 - PHPGROUP=${PHPGROUP}
                 - PHPUSER=${PHPUSER}
-        image: laravel_php:latest
-        container_name: laravel_php
+        image: laravel_php80:latest
+        container_name: laravel_php80
         restart: always
         volumes:
             - ./src:/var/www/html
@@ -46,9 +46,9 @@ services:
             MARIADB_DATABASE: ${MARIADB_DATABASE}
             MARIADB_USER: ${MARIADB_USER}
             MARIADB_PASSWORD: ${MARIADB_PASSWORD}
-            MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+            MARIADB_RANDOM_ROOT_PASSWORD: 'yes'
         volumes:
-            - ./my_database:/var/lib/mysql
+            - laravel_mariadb:/var/lib/mysql
         networks:
             - laravel
 
@@ -88,5 +88,5 @@ services:
 networks:
     laravel:
 
-# volumes:
-#     laravel_mariadb:
+volumes:
+    laravel_mariadb:

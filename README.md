@@ -1,17 +1,15 @@
-## To do list
-
-- Development Environment:
+## To Do List
 
     - [x] Nginx
-    - [x] PHP
+    - [x] PHP 8.0
     - [x] Composer
     - [x] NPM
-    - [x] Laravel
+    - [x] Laravel 8
     - [x] MariaDB
     - [x] Redis
     - [x] Dockerfile
     - [x] docker-compose
-    - [x] Sail(Official docker-compose)
+    - [x] Sail (Official docker-compose)
 
 ## Usage
 
@@ -44,7 +42,7 @@ $ sudo docker-compose up --build -d laravel_nginx
 The command above will run these services defined in `docker-compose.yml` file:
 
 - laravel_nginx
-- laravel_php
+- laravel_php80
 - laravel_mariadb
 - laravel_redis
 
@@ -64,13 +62,12 @@ $ sudo docker build \
   ./
 ```
 
-Run the image in a container:
+Run the container depends on this image:
 
 ```bash
 $ sudo docker run --rm -it \
   --name my_lemp \
   -p 80:80 \
-  -v "$PWD/php-fpm.pool.conf:/etc/php/8.0/fpm/pool.d/www.conf" \
   -v "$PWD/nginx.conf:/etc/nginx/sites-available/default" \
   -v "$PWD/src:/var/www/html" \
   -v "laravel_mariadb:/var/lib/mysql" \
@@ -97,7 +94,7 @@ $ sudo docker-compose run --rm laravel_composer composer update
 Or, you can get into container and run:
 
 ```bash
-$ sudo docker exec -it laravel_php /bin/bash
+$ sudo docker exec -it laravel_php80 /bin/bash
 $ composer install
 $ composer update
 ```
@@ -113,7 +110,7 @@ $ sudo docker-compose run --rm laravel_nodejs npm ci     # install version-locke
 Also, you can get into container and run:
 
 ```bash
-$ sudo docker exec -it laravel_php /bin/bash
+$ sudo docker exec -it laravel_php80 /bin/bash
 $ npm ci     # install version-locked packages
 ```
 
@@ -122,19 +119,39 @@ $ npm ci     # install version-locked packages
 To generate your laravel app key, get into container and run command:
 
 ```bash
-$ sudo docker exec -it laravel_php /bin/bash
+$ sudo docker exec -it laravel_php80 /bin/bash
 $ php artisan key:generate
+```
+
+### MariaDB Config
+
+If you are using docker-compose, there's NO NEED to initialize your database, the official MariaDB image has handled all of them.
+
+If you are using Dockerfile, you NEED to follow steps below to initialize your database system:
+
+1. Login into MariaDB Workbench
+2. Create a Database
+3. Register a User
+4. Grant the Database Privileges to that User
+5. Apply the Settings above
+
+```bash
+$ sudo mysql
+MariaDB > CREATE DATABASE `laravel`;
+MariaDB > CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
+MariaDB > GRANT ALL PRIVILEGES ON `laravel`.* TO 'username'@'localhost';
+MariaDB > FLUSH PRIVILEGES;
 ```
 
 ### Volumes
 
-If you are using `Dockerfile`, you can find your `mariadb-volume` in `/var/lib/docker/volumes/<volume-name>` (this path is for `Linux` user!!)
+You can find your Mariadb Volume in `/var/lib/docker/volumes/<volume-name>` (this path is for `Linux` user!!)
 
-If you are using `docker-compose`, just find your `mariadb-volume` in `./my_database`
+> Warning: DO NOT mount database volumes in local path, it will cause many issues which may destroy all of your patient !!
 
 ### Laravel Official Sail Development Environment
 
-If you prefer official method, you can use `Sail` which is developed by Laravel itself.
+If you prefer official method, you can just use `Sail` which is developed by Laravel itself.
 
 Here's a snippet source codes from official which can work pretty nice on my computer:
 
