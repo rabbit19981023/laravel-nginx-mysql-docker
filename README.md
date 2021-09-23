@@ -158,7 +158,7 @@ If you prefer official method, you can just use `Sail` which is developed by Lar
 Here's a snippet source codes from official which can work pretty nice on my computer:
 
 ```bash
-$ sudo docker run
+$ sudo docker run \
   --rm \
   -w /opt \
   -v "$PWD:/opt" \
